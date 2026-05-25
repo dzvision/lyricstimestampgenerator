@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时间轴歌词制作工具</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>时间轴歌词制作工具</h1>
+            <p>无需上传音频文件，轻松为歌词添加时间轴</p>
+        </header>
+
+        <main class="main-content">
+            <section class="input-section" id="inputSection">
+                <label for="lyricInput">粘贴您的歌词</label>
+                <textarea 
+                    id="lyricInput" 
+                    placeholder="在这里粘贴歌词...&#10;&#10;例如：&#10;第一句歌词&#10;第二句歌词&#10;第三句歌词"
+                ></textarea>
+                <div class="filter-section">
+                    <div class="filter-hint">
+                        <span class="hint-icon">💡</span>
+                        <span>过滤掉 Suno 提示词行，让歌词更干净</span>
+                    </div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="filterSquareBrackets" checked>
+                            <span>[Chorus] 段落标记</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="filterRoundBrackets" checked>
+                            <span>(instrumental) 英文提示</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="filterChineseBrackets" checked>
+                            <span>（编曲提示）中文提示</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button id="startButton" class="btn btn-primary">开始制作</button>
+                </div>
+            </section>
+
+            <section class="preview-section" id="previewSection" style="display: none;">
+                <h2>歌词预览</h2>
+                <div class="lyric-preview" id="lyricPreview"></div>
+                <div class="button-group">
+                    <button id="backButton" class="btn btn-outline">返回修改</button>
+                    <button id="startEditButton" class="btn btn-primary">开始制作时间轴</button>
+                </div>
+            </section>
+
+            <section class="result-section" id="resultSection" style="display: none;">
+                <h2>制作完成</h2>
+                <div class="result-grid">
+                    <div class="result-box">
+                        <div class="box-header">
+                            <h3>原歌词</h3>
+                            <button class="copy-btn" id="copyOriginalBtn" title="复制">📋</button>
+                        </div>
+                        <textarea id="originalLyric" readonly></textarea>
+                    </div>
+                    <div class="result-box">
+                        <div class="box-header">
+                            <h3>带时间轴歌词</h3>
+                            <button class="copy-btn" id="copyTimedBtn" title="复制">📋</button>
+                        </div>
+                        <textarea id="timedLyric" readonly></textarea>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button id="backToInputBtn" class="btn btn-outline">重新制作</button>
+                    <button id="exportButton" class="btn btn-secondary">导出LRC</button>
+                </div>
+            </section>
+        </main>
+
+        <div class="modal-overlay" id="editorModal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>时间轴制作</h2>
+                    <button class="close-btn" id="closeModal">&times;</button>
+                </div>
+                
+                <div class="timer-section">
+                    <div class="timer-display" id="timerDisplay">00:00.00</div>
+                    <div class="timer-controls">
+                        <button id="playPauseBtn" class="timer-btn">
+                            <span class="play-icon">▶</span>
+                        </button>
+                        <button id="resetBtn" class="timer-btn">↺</button>
+                    </div>
+                </div>
+
+                <div class="lyric-list" id="lyricList"></div>
+
+                <div class="modal-footer">
+                    <button id="cancelBtn" class="btn btn-outline">取消</button>
+                    <button id="finishBtn" class="btn btn-primary">完成制作</button>
+                    <div class="hint">按 <kbd>空格</kbd> 记录时间</div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>使用提示：播放音乐时，听到每句歌词开始时点击按钮或按空格键记录时间</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
