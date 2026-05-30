@@ -23,6 +23,7 @@ const backToInputBtn = document.getElementById('backToInputBtn');
 const filterSquareBrackets = document.getElementById('filterSquareBrackets');
 const filterRoundBrackets = document.getElementById('filterRoundBrackets');
 const filterChineseBrackets = document.getElementById('filterChineseBrackets');
+const replacePunctuation = document.getElementById('replacePunctuation');
 
 let lyrics = [];
 let lyricLines = [];
@@ -46,11 +47,20 @@ function isHintLine(line) {
 }
 
 function parseLyrics(text) {
-    return text
+    let lines = text
         .split('\n')
         .map(line => line.trim())
         .filter(line => line.length > 0)
         .filter(line => !isHintLine(line));
+    
+    // 如果勾选了替换标点符号选项，将逗号替换为空格，删除句号
+    if (replacePunctuation.checked) {
+        lines = lines.map(line => {
+            return line.replace(/[，,]/g, ' ').replace(/。/g, '');
+        });
+    }
+    
+    return lines;
 }
 
 function formatTime(ms) {
